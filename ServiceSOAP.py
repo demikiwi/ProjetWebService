@@ -6,18 +6,22 @@ from math import sin, cos, acos, pi
 import requests
 import json
 class tempsParcours(ServiceBase):
-    @rpc(String, String, String, String, Integer, _returns=String)
+    @rpc(String, String, String, String, String, _returns=String)
     def tempsParcours(ctx, latA, longA, latB, longB, autonomie):
         proto="http://wxs.ign.fr/essentiels/itineraire/rest/route.json?origin=" + latA + "," + longA + "&destination=" + latB + "," + longB + "&method=DISTANCE&graphName=Voiture"
         rawdata= requests.get(proto)
         json_loaded = rawdata.json()
-        result = json_loaded.get('duration')
+        duration = json_loaded.get('duration')
         distance = json_loaded.get('distance')
-        #if distance > autonomie:
-        #   print("Une recharge est nécessaire")
-        #else:
-        #    print("pas de recharge nécessaire")
-        print(result)
+        print("distance = " + distance)
+        print("autaunomie = " + autonomie)
+        if distance > autonomie:
+            result = "Une recharge sera nécessaire en plus du trajet d'uen durée de " + duration
+            #print("Une recharge est nécessaire")
+        else:
+            result = "trajet d'une durée de " + duration
+            #print("pas de recharge nécessaire")
+        #print(result)
         return result
 
             
