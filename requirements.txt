@@ -1,3 +1,2 @@
 spyne
 requests
-json
