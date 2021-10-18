@@ -5,6 +5,7 @@ from spyne import *
 from math import sin, cos, acos, pi
 import requests
 import json
+
 class tempsParcours(ServiceBase):
     @rpc(String, String, String, String, String, _returns=String)
     def tempsParcours(ctx, latA, longA, latB, longB, autonomie):
@@ -13,15 +14,14 @@ class tempsParcours(ServiceBase):
         json_loaded = rawdata.json()
         duration = json_loaded.get('duration')
         distance = json_loaded.get('distance')
+
         print("distance = " + distance)
         print("autaunomie = " + autonomie)
+
         if distance > autonomie:
-            result = "Une recharge sera nécessaire en plus du trajet d'uen durée de " + duration
-            #print("Une recharge est nécessaire")
+            result = "Une recharge sera nécessaire en plus du trajet d'une durée de " + duration
         else:
             result = "trajet d'une durée de " + duration
-            #print("pas de recharge nécessaire")
-        #print(result)
         return result
 
             
