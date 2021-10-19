@@ -28,7 +28,7 @@ class tempsParcours(ServiceBase):
 application = Application([tempsParcours], 'spyne.examples.hello.soap', in_protocol=Soap11(validator='lxml'), out_protocol=Soap11())
 wsgi_application = WsgiApplication(application)
         
-# if __name__ == "__main__":
-#     from wsgiref.simple_server import make_server
-#     server = make_server('127.0.0.1', 8000, wsgi_application)
-#     server.serve_forever()
+if __name__ == "__main__":
+    from wsgiref.simple_server import make_server
+    server = make_server('0.0.0.0', 80, wsgi_application)
+    server.serve_forever()
