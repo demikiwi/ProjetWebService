@@ -19,7 +19,8 @@ class tempsParcours(ServiceBase):
         print("autaunomie = " + autonomie)
 
         if distance < autonomie:
-            result = "{duree :" + duration + ",message : 'pas de recharge necessaire'}"
+            # result = '{"duree":" + duration + ",message : 'pas de recharge necessaire'}"
+            result = json.dumps({'duree': duration,'message':'pas de recharge necessaire'})
         else:
             distance = distance[:-3]
             distanceINT = float(distance)
@@ -27,7 +28,8 @@ class tempsParcours(ServiceBase):
             restant = (distanceINT-autonomieINT)
             temps = round(0.2*restant)
             tempsSTR = str(temps)
-            result = ("{duree : '" + duration + "',temps_recharge : '" + tempsSTR + "',message : 'une recharge est necessaire'}")
+            # result = ("{duree : '" + duration + "',temps_recharge : '" + tempsSTR + "',message : 'une recharge est necessaire'}")
+            result = json.dumps({'duree': duration,'message':'pas de recharge necessaire','temps_recharge': tempsSTR})
         return result
 
             
