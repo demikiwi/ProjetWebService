@@ -19,7 +19,7 @@ class tempsParcours(ServiceBase):
         print("autaunomie = " + autonomie)
 
         if distance < autonomie:
-            result = "Le véhicule a assez d'autonomie pour réaliser le trajet, durée du trajet : " + duration
+            result = "{duree :" + duration + ",message : 'pas de recharge necessaire'}"
         else:
             distance = distance[:-3]
             distanceINT = float(distance)
@@ -27,7 +27,7 @@ class tempsParcours(ServiceBase):
             restant = (distanceINT-autonomieINT)
             temps = round(0.2*restant)
             tempsSTR = str(temps)
-            result = ("L'autonomie n'est pas suffisante ! Le temps de trajet et de " + duration + " plus " + tempsSTR + " minutes de recharge")
+            result = ("{duree : '" + duration + "',temps_recharge : '" + tempsSTR + "',message : 'une recharge est necessaire'}")
         return result
 
             
@@ -36,5 +36,5 @@ wsgi_application = WsgiApplication(application)
 
 if __name__ == "__main__":
     from wsgiref.simple_server import make_server
-    server = make_server('127.0.0.1', 80, wsgi_application)
+    server = make_server('0.0.0.0', 80, wsgi_application)
     server.serve_forever()
